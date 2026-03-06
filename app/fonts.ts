@@ -4,4 +4,5 @@ export const orbitron = Orbitron({
     subsets: ["latin"],
     weight: ["400", "700"],
     display: "swap",
+    variable: "--font-orbitron",
 });

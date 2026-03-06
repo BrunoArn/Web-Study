@@ -7,6 +7,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
+                sans: ['var(--font-exo2)', 'sans-serif'], //sans is default font, we are overriding it with our custom font
                 orbitron: ['var(--font-orbitron)', 'sans-serif'],
             },
         },

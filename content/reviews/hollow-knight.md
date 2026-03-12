@@ -1,6 +1,6 @@
 ---
 title: "Hollow Knight"
-date: "2025-05-007"
+date: "2025-05-07"
 image: "/images/hollow-knight.jpg"
 ---
 

@@ -1,3 +1,9 @@
+---
+title: "Stardew Valley"
+date: "2025-05-04"
+image: "/images/stardew-valley.jpg"
+---
+
 **Stardew Valley** é um jogo indie de simulação de fazenda lançado em 2016 e desenvolvido por **Eric Barone (ConcernedApe)**.
 
 No jogo, você herda a fazenda abandonada do seu avô e começa uma nova vida no campo. Ao longo da jornada, é possível plantar, criar animais, pescar, minerar, explorar cavernas e desenvolver relacionamentos com os moradores da cidade.

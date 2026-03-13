@@ -3,6 +3,13 @@ import NavBar from "@/components/NavBar";
 import { orbitron, exo2 } from "./fonts";
 import "./globals.css";
 
+export const metadata = {
+    title: {
+        default: "Indie Game",
+        template: "%s | Indie Gamer",
+    },
+};
+
 interface LayoutProps {
     children: ReactNode;
 }

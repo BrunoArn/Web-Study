@@ -1,4 +1,5 @@
 import Heading from "@/components/Heading";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReviewData, getSlugs } from "@/lib/reviews";
 
 export async function generateStaticParams() {
@@ -20,19 +21,28 @@ export default async function ReviewPage({ params }) {
 
     return (
         <>
-            <Heading>{reviewData.title}</Heading>
-            <p
-                className="italic pb-2">{reviewData.date}
-            </p>
+            <Heading>
+                {reviewData.title}
+            </Heading>
+
+            <div className="flex gap-3 items-baseline">
+                <p
+                    className="italic pb-2">{reviewData.date}
+                </p>
+                <ShareLinkButton />
+            </div>
+
             <img
                 src={reviewData.image}
                 alt=""
                 width={640} height={360} className="mb-2 rounded"
             />
+
             <article
                 dangerouslySetInnerHTML={{ __html: reviewData.body }}
                 className="max-w-screen-sm prose prose-slate"
             />
+
         </>
     );
 }

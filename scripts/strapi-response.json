@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 5,
+      "documentId": "krwapzfc64apmsrd2lte5ehq",
+      "slug": "diablo-iv",
+      "Title": "Diablo IV",
+      "subtitle": "Action Rpg that Rocks!",
+      "publishedAt": "2026-05-07T18:55:39.284Z",
+      "Body": "# Diablo 4 \n\n## ⭐ 8.5/10\n\nDiablo 4 traz de volta a atmosfera sombria da franquia com um combate extremamente viciante e visual impressionante. A campanha é sólida, o mundo é bem construído e as builds oferecem bastante variedade.\n\nO maior problema está no endgame, que pode ficar repetitivo depois de muitas horas.\n\n**Prós**\n- Combate fluido\n- Ótima ambientação\n- Boa variedade de builds\n\n**Contras**\n- Endgame repetitivo\n- Progressão às vezes lenta",
+      "image": {
+        "id": 12,
+        "documentId": "kd38ndz4lppvw3cantry207q",
+        "url": "/uploads/capsule_616x353_alt_assets_11_2f27892518.jpg"
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 1
+    }
+  }
+}

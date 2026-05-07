@@ -11,10 +11,34 @@ export async function getFeaturedReview() {
 }
 
 export async function getReviewData(slug) {
-    const text = await readFile(`./content/reviews/${slug}.md`, "utf-8");
-    const { content, data: { title, date, image } } = matter(text);
-    const body = marked(content);
-    return { slug, title, date, image, body };
+    // const text = await readFile(`./content/reviews/${slug}.md`, "utf-8");
+    // const { content, data: { title, date, image } } = matter(text);
+    // const body = marked(content);
+    // return { slug, title, date, image, body };
+
+    const url = `${CMS_URL}/api/reviews?`
+        + qs.stringify(
+            {
+                filters: { slug: { $eq: slug } },
+                fields: ['slug', 'Title', 'subtitle', 'publishedAt', 'Body'],
+                populate: { image: { fields: ['url'] } },
+                pagination: { pageSize: 1, withCount: false },
+            },
+            { encodeValuesOnly: true }
+        );
+
+    console.log('getReviewsList:', url);
+    const response = await fetch(url);
+    const { data } = await response.json();
+
+    const review = data[0];
+    return {
+        slug: review.slug,
+        title: review.Title,
+        date: review.publishedAt.slice(0, 'yyyy-mm-dd'.length),
+        image: CMS_URL + review.image?.url,
+        body: marked(review.Body),
+    };
 }
 
 export async function getReviewsList() {

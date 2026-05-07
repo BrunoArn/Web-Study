@@ -1,4 +1,3 @@
-import { readdir, readFile } from "node:fs/promises";
 import matter from "gray-matter";
 import { marked } from "marked";
 import qs from "qs";
@@ -6,8 +5,8 @@ import qs from "qs";
 const CMS_URL = 'http://localhost:1337'
 
 export async function getFeaturedReview() {
-    const slugs = await getSlugs();
-    return await getReviewData(slugs[0]);
+    const reviews = await getReviewsList();
+    return reviews[0];
 }
 
 export async function getReviewData(slug) {
@@ -39,9 +38,13 @@ export async function getReviewsList() {
 }
 
 export async function getSlugs() {
-    const files = await readdir("./content/reviews");
-    return files.filter((file) => file.endsWith(".md"))
-        .map((file) => file.replace(".md", ""));
+    const { data } = await FetchReviewsList(
+        {
+            fields: ['slug'],
+            sort: ['publishedAt:desc'],
+            pagination: { pageSize: 100 }
+        });
+        return data.map((item) => item.slug);
 }
 
 async function FetchReviewsList(parameters) {

@@ -16,7 +16,7 @@ interface LayoutProps {
 
 export default function rootLayout({ children }: LayoutProps) {
     return (
-        <html lang="en" className={`${exo2.variable} ${orbitron.variable}}`}>
+        <html lang="en" className={`${exo2.variable} ${orbitron.variable}`}>
             <body className="bg-orange-50 flex flex-col px-4 py-2 min-h-screen">
                 <header>
                     <NavBar />

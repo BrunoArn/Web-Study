@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/reviews";
@@ -20,7 +21,7 @@ export default async function ReviewsPage() {
                     <li key={review.slug}
                         className="bg-white border w-80 rounded shadow hover:shadow-xl">
                         <Link href={`/reviews/${review.slug}`}>
-                            <img src={review.image}
+                            <Image src={review.image}
                                 alt=""
                                 width={320} height={180} className="mb-2 rounded-t"
                             />

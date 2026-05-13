@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default async function ReviewsPage() {
-    const reviews = await getReviewsList();
+    const reviews = await getReviewsList(6);
 
     return (
         <>
@@ -16,13 +16,17 @@ export default async function ReviewsPage() {
             <p>
                 Tem review pra caramba, mano! Tem review de tudo quanto é jogo indie, desde os mais famosos até os mais obscuros. Se você quer saber se um jogo é bom ou não, é só dar uma olhada aqui!
             </p>
-            <ul className="flex flex-row flex-wrap gap-3">
-                {reviews.map((review) => (
-                    <li key={review.slug}
+            <ul
+                className="flex flex-row flex-wrap gap-3">
+                {reviews.map((review, index) => (
+                    <li
+                        key={review.slug}
                         className="bg-white border w-80 rounded shadow hover:shadow-xl">
-                        <Link href={`/reviews/${review.slug}`}>
+                        <Link
+                            href={`/reviews/${review.slug}`}>
                             <Image src={review.image}
                                 alt=""
+                                priority={index < 4} // Prioritize the first 4 images for faster loading
                                 width={320} height={180} className="mb-2 rounded-t"
                             />
                             <h2 className="font-semibold font-orbitron py-1 text-center">

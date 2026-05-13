@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Heading from "@/components/Heading";
 import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReviewData, getSlugs } from "@/lib/reviews";
@@ -25,16 +26,18 @@ export default async function ReviewPage({ params }) {
                 {reviewData.title}
             </Heading>
 
-            <div className="flex gap-3 items-baseline">
+            <div
+                className="flex gap-3 items-baseline">
                 <p
                     className="italic pb-2">{reviewData.date}
                 </p>
                 <ShareLinkButton />
             </div>
 
-            <img
+            <Image
                 src={reviewData.image}
                 alt=""
+                priority
                 width={640} height={360} className="mb-2 rounded"
             />
 

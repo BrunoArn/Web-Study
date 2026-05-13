@@ -4,11 +4,6 @@ import qs from "qs";
 
 const CMS_URL = 'http://localhost:1337'
 
-export async function getFeaturedReview() {
-    const reviews = await getReviewsList();
-    return reviews[0];
-}
-
 export async function getReviewData(slug) {
     const { data } = await FetchReviewsList(
         {
@@ -25,13 +20,13 @@ export async function getReviewData(slug) {
     };
 }
 
-export async function getReviewsList() {
+export async function getReviewsList(pageSize) {
     const { data } = await FetchReviewsList(
         {
             fields: ['slug', 'Title', 'subtitle', 'publishedAt'],
             populate: { image: { fields: ['url'] } },
             sort: ['publishedAt:desc'],
-            pagination: { pageSize: 6 }
+            pagination: { pageSize: pageSize }
         });
 
     return data.map(ToReview);
@@ -50,8 +45,6 @@ export async function getSlugs() {
 async function FetchReviewsList(parameters) {
     const url = `${CMS_URL}/api/reviews?`
         + qs.stringify(parameters, { encodeValuesOnly: true });
-
-    console.log('FetchReviewsList:', url);
 
     const response = await fetch(url);
     if(!response.ok) {

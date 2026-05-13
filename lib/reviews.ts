@@ -2,6 +2,8 @@ import matter from "gray-matter";
 import { marked } from "marked";
 import qs from "qs";
 
+export const CACHE_TAG_REVIEWS = 'review';
+
 const CMS_URL = 'http://localhost:1337'
 
 export async function getReviewData(slug) {
@@ -49,7 +51,7 @@ async function FetchReviewsList(parameters) {
         + qs.stringify(parameters, { encodeValuesOnly: true });
 
     const response = await fetch(url, {
-        next: { revalidate: 10 }
+        next: { tags: [CACHE_TAG_REVIEWS] }
     });
     if (!response.ok) {
         throw new Error(`Failed to fetch reviews list: ${response.status} for ${url}`);

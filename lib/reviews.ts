@@ -12,7 +12,9 @@ export async function getReviewData(slug) {
             populate: { image: { fields: ['url'] } },
             pagination: { pageSize: 1, withCount: false },
         });
-
+        if(data.length === 0) {
+            return null;
+        }
     const review = data[0];
     return {
         ...ToReview(review),

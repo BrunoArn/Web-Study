@@ -57,6 +57,7 @@ function ToReview(item) {
     return {
         slug: item.slug,
         title: item.Title,
+        subtitle: item.subtitle,
         date: item.publishedAt.slice(0, 'yyyy-mm-dd'.length),
         image: CMS_URL + (item.image?.url)
     }

@@ -25,6 +25,9 @@ export default async function ReviewPage({ params }) {
             <Heading>
                 {reviewData.title}
             </Heading>
+            <p className="font-semibold pb-3">
+                {reviewData.subtitle}
+            </p>
 
             <div
                 className="flex gap-3 items-baseline">

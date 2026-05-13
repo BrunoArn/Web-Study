@@ -3,6 +3,8 @@ import Link from "next/link";
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/reviews";
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
 
     const featuredReviews = await getReviewsList(3);

@@ -12,9 +12,9 @@ export async function getReviewData(slug) {
             populate: { image: { fields: ['url'] } },
             pagination: { pageSize: 1, withCount: false },
         });
-        if(data.length === 0) {
-            return null;
-        }
+    if (data.length === 0) {
+        return null;
+    }
     const review = data[0];
     return {
         ...ToReview(review),
@@ -41,15 +41,17 @@ export async function getSlugs() {
             sort: ['publishedAt:desc'],
             pagination: { pageSize: 100 }
         });
-        return data.map((item) => item.slug);
+    return data.map((item) => item.slug);
 }
 
 async function FetchReviewsList(parameters) {
     const url = `${CMS_URL}/api/reviews?`
         + qs.stringify(parameters, { encodeValuesOnly: true });
 
-    const response = await fetch(url);
-    if(!response.ok) {
+    const response = await fetch(url, {
+        next: { revalidate: 10 }
+    });
+    if (!response.ok) {
         throw new Error(`Failed to fetch reviews list: ${response.status} for ${url}`);
     }
     return await response.json();

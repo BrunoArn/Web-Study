@@ -3,7 +3,6 @@ import Link from "next/link";
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/reviews";
 
-export const dynamic = 'force-dynamic';
 
 export const metadata = {
     title: "Reviews", //override the default values and appendes the layout la

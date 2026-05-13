@@ -18,7 +18,7 @@ export default async function HomePage() {
                 {featuredReviews.map((review, index) => (
                     <li
                         key={review.slug}
-                        className="bg-white border rounded shadow w-80 hover:shadow-xl sm:w-full"
+                        className="bg-white border rounded shadow w-80 hover:shadow-xl sm:w-full overflow-hidden"
                     >
                         <Link
                             href={`/reviews/${review.slug}`}
@@ -26,7 +26,9 @@ export default async function HomePage() {
                             <Image src={review.image}
                                 alt=""
                                 priority={index < 3} // Prioritize the first 3 images for faster loading
-                                width={320} height={180} className="rounded-t sm:rounded-l sm:rounded-r-none"
+                                width={320} 
+                                height={180} 
+                                className="rounded-t sm:rounded-l sm:rounded-r-none"
                             />
                             <div className="px-2 py-1 text-center sm:text-left">
                                 <h2

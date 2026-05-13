@@ -16,7 +16,7 @@ export default async function HomePage() {
             </p>
             <ul
                 className="flex flex-col gap-3">
-                {featuredReviews.map((review, index) => (
+                {featuredReviews.reviews.map((review, index) => (
                     <li
                         key={review.slug}
                         className="bg-white border rounded shadow w-80 hover:shadow-xl sm:w-full overflow-hidden"

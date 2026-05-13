@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import Heading from "@/components/Heading";
+import PaginationBar from "@/components/PaginationBar";
+
 import { getReviewsList } from "@/lib/reviews";
 
 
@@ -8,15 +10,17 @@ export const metadata = {
     title: "Reviews", //override the default values and appendes the layout la
 };
 
-export default async function ReviewsPage() {
-    const reviews = await getReviewsList(6);
+const PAGE_SIZE = 8;
+
+export default async function ReviewsPage({ searchParams }) {
+    const params = await searchParams;
+    const page = parsePageParam(params.page);
+    const { reviews, pageCount } = await getReviewsList(PAGE_SIZE, page);
 
     return (
         <>
             <Heading>Reviews</Heading>
-            <p>
-                Tem review pra caramba, mano! Tem review de tudo quanto é jogo indie, desde os mais famosos até os mais obscuros. Se você quer saber se um jogo é bom ou não, é só dar uma olhada aqui!
-            </p>
+            <PaginationBar href="/reviews" page={page} pageCount={pageCount} />
             <ul
                 className="flex flex-row flex-wrap gap-3  overflow-hidden">
                 {reviews.map((review, index) => (
@@ -42,4 +46,14 @@ export default async function ReviewsPage() {
             </ul>
         </>
     );
+}
+
+function parsePageParam(paramValue) {
+    if (paramValue) {
+        const page = parseInt(paramValue);
+        if (isFinite(page) && page > 0) {
+            return page;
+        }
+    }
+    return 1; // Default to page 1 if the parameter is missing or invalid
 }

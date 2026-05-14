@@ -4,7 +4,6 @@ import { Combobox, ComboboxInput, ComboboxOptions, ComboboxOption } from "@headl
 import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
-import { SearchReviews } from "@/lib/reviews";
 
 export default function SearchBox() {
     const router = useRouter();
@@ -14,19 +13,14 @@ export default function SearchBox() {
     useEffect(() => {
         if (query.length > 0) {
             (async () => {
-                const reviews = await SearchReviews(query);
+                const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+                const reviews = await response.json();
                 setReviews(reviews);
             })();
         } else {
             setReviews([]);
         }
     }, [query]);
-
-    /*
-    const filtered = reviews.filter((review) =>
-        review.title.toLowerCase().includes(query.toLowerCase())
-    ).slice(0, 5); // Limit to top 5 results
-    */
 
     const handleChange = (review) => {
         router.push(`/reviews/${review.slug}`);
@@ -41,17 +35,17 @@ export default function SearchBox() {
                     className="border px-2 py-1 rounded"
                 />
                 <ComboboxOptions className="absolute bg-white py-1 w-full">
-                {reviews.map((review) => (
-                    <ComboboxOption
-                        key={review.slug}
-                        value={review}
-                        className="block truncate px-2 w-full data-focus:bg-orange-100"
-                    >
-                        {review.title}
-                    </ComboboxOption>
-                ))}
-            </ComboboxOptions>
-        </Combobox>
+                    {reviews.map((review) => (
+                        <ComboboxOption
+                            key={review.slug}
+                            value={review}
+                            className="block truncate px-2 w-full data-focus:bg-orange-100"
+                        >
+                            {review.title}
+                        </ComboboxOption>
+                    ))}
+                </ComboboxOptions>
+            </Combobox>
         </div >
     );
 }

@@ -12,19 +12,30 @@ export default function SearchBox() {
 
     useEffect(() => {
         if (query.length > 0) {
+            const controller = new AbortController();
+            
             (async () => {
-                const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
-                const reviews = await response.json();
-                setReviews(reviews);
+                try {
+                    const url = `/api/search?query=${encodeURIComponent(query)}`
+                    const response = await fetch(url, {signal: controller.signal});
+                    const reviews = await response.json();
+                    setReviews(reviews);
+
+                } catch (error) {
+                    if(error.name === "AbortError") return;
+                    console.error("Failed to fetch search results:", error);
+                }
             })();
+
+            return () => controller.abort();
         } else {
             setReviews([]);
         }
     }, [query]);
 
     const handleChange = (review) => {
+        if (!review) return;
         router.push(`/reviews/${review.slug}`);
-        console.log("Selected review:", review);
     }
 
     return (

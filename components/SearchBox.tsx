@@ -4,23 +4,14 @@ import { Combobox, ComboboxInput, ComboboxOptions, ComboboxOption } from "@headl
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const reviewsTestData = [
-    { slug: 'diablo-iv', title: 'Diablo IV' },
-    { slug: 'clair-obscur-expedition-33', title: 'Clair Obscur: Expedition 33' },
-    { slug: 'diablo-iii', title: 'Diablo III' },
-    { slug: 'rogue-legacy-2', title: 'Rogue Legacy 2' },
-    { slug: 'slay-the-spire', title: 'Slay the Spire' },
-    { slug: 'rogue-legacy', title: 'Rogue Legacy' },
-    { slug: 'dofus', title: 'Dofus' },
-    { slug: 'slay-the-spire-2', title: 'Slay the Spire 2' }
-]
-
-
-export default function SearchBox() {
+export default function SearchBox({ reviews }) {
     const router = useRouter();
     const [query, setQuery] = useState("");
-    const filtered = reviewsTestData.filter((review) => review.title.includes(query));
-    
+
+    const filtered = reviews.filter((review) =>
+        review.title.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 5); // Limit to top 5 results
+
     const handleChange = (review) => {
         router.push(`/reviews/${review.slug}`);
         console.log("Selected review:", review);

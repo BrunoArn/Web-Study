@@ -39,6 +39,19 @@ export async function getReviewsList(pageSize, page?) {
     };
 }
 
+export async function getSearchableReviews() {
+    const { data } = await FetchReviewsList(
+        {
+            fields: ['slug', "Title"],
+            sort: ['publishedAt:desc'],
+            pagination: { pageSize: 100 }
+        });
+    return data.map((item) => ({
+        slug: item.slug,
+        title: item.Title
+    }));
+}
+
 export async function getSlugs() {
     const { data } = await FetchReviewsList(
         {

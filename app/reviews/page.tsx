@@ -3,7 +3,7 @@ import Link from "next/link";
 import Heading from "@/components/Heading";
 import PaginationBar from "@/components/PaginationBar";
 
-import { getReviewsList, getSearchableReviews } from "@/lib/reviews";
+import { getReviewsList } from "@/lib/reviews";
 import SearchBox from "@/components/SearchBox";
 
 
@@ -17,14 +17,13 @@ export default async function ReviewsPage({ searchParams }) {
     const params = await searchParams;
     const page = parsePageParam(params.page);
     const { reviews, pageCount } = await getReviewsList(PAGE_SIZE, page);
-    const searchableReviews = await getSearchableReviews();
 
     return (
         <>
             <Heading>Reviews</Heading>
             <div className="flex justify-between pb-3">
                 <PaginationBar href="/reviews" page={page} pageCount={pageCount} />
-                <SearchBox reviews={searchableReviews} />
+                <SearchBox/>
             </div>
             <ul
                 className="flex flex-row flex-wrap gap-3  overflow-hidden">

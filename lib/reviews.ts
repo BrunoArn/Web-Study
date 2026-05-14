@@ -6,6 +6,14 @@ export const CACHE_TAG_REVIEWS = 'review';
 
 const CMS_URL = 'http://localhost:1337'
 
+export type Review = {
+    slug: string;
+    title: string;
+    subtitle?: string;
+    date?: string;
+    image?: string;
+}
+
 export async function getReviewData(slug) {
     const { data } = await FetchReviewsList(
         {
@@ -39,14 +47,15 @@ export async function getReviewsList(pageSize, page?) {
     };
 }
 
-export async function getSearchableReviews() {
+export async function SearchReviews(query) {
     const { data } = await FetchReviewsList(
         {
+            filters: { Title: { $containsi: query } },
             fields: ['slug', "Title"],
-            sort: ['publishedAt:desc'],
-            pagination: { pageSize: 100 }
+            sort: ['Title:asc'],
+            pagination: { pageSize: 5 }
         });
-    return data.map((item) => ({
+    return data.map((item): Review => ({
         slug: item.slug,
         title: item.Title
     }));

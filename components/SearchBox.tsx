@@ -2,27 +2,28 @@
 
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxOption } from "@headlessui/react";
 import { useRouter } from "next/navigation";
-
 import { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
 export default function SearchBox() {
     const router = useRouter();
     const [query, setQuery] = useState("");
+    const [debouncedQuery] = useDebounce(query, 300);
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        if (query.length > 0) {
+        if (debouncedQuery.length > 0) {
             const controller = new AbortController();
-            
+
             (async () => {
                 try {
                     const url = `/api/search?query=${encodeURIComponent(query)}`
-                    const response = await fetch(url, {signal: controller.signal});
+                    const response = await fetch(url, { signal: controller.signal });
                     const reviews = await response.json();
                     setReviews(reviews);
 
                 } catch (error) {
-                    if(error.name === "AbortError") return;
+                    if (error.name === "AbortError") return;
                     console.error("Failed to fetch search results:", error);
                 }
             })();
@@ -31,7 +32,7 @@ export default function SearchBox() {
         } else {
             setReviews([]);
         }
-    }, [query]);
+    }, [debouncedQuery]);
 
     const handleChange = (review) => {
         if (!review) return;

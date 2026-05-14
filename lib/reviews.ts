@@ -91,6 +91,6 @@ function ToReview(item) {
         title: item.Title,
         subtitle: item.subtitle,
         date: item.publishedAt.slice(0, 'yyyy-mm-dd'.length),
-        image: CMS_URL + (item.image?.url)
+        image: new URL(item.image?.url, CMS_URL).href
     }
 }

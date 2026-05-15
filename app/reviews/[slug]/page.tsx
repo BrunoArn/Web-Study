@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import Heading from "@/components/Heading";
 import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReviewData, getSlugs } from "@/lib/reviews";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/20/solid";
+import CommentList from "@/components/CommentList";
+import CommentForm from "@/components/CommentForm";
 
 
 export async function generateStaticParams() {
@@ -56,7 +59,14 @@ export default async function ReviewPage({ params }) {
                 dangerouslySetInnerHTML={{ __html: reviewData.body }}
                 className="max-w-screen-sm prose prose-slate"
             />
-
+            <section className="border-dashed border-t max-w-screen-sm mt-3 py-3">
+                <h2 className="font-bold flex gap-2 items-center text-xl">
+                    <ChatBubbleBottomCenterTextIcon className="w-6 h-6" />
+                    Comments
+                </h2>
+                <CommentForm title={reviewData.title} />
+                <CommentList />
+            </section>
         </>
     );
 }

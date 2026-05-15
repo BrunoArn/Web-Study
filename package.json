@@ -1,6 +1,7 @@
 {
     "name": "next-reviews",
     "private": true,
+    "type": "module",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
@@ -10,6 +11,10 @@
     "dependencies": {
         "@headlessui/react": "^2.2.10",
         "@heroicons/react": "^2.2.0",
+        "@prisma/adapter-better-sqlite3": "^7.8.0",
+        "@prisma/client": "^7.8.0",
+        "better-sqlite3": "^12.10.0",
+        "dotenv": "^17.4.2",
         "gray-matter": "^4.0.3",
         "marked": "^17.0.4",
         "next": "^16.1.6",
@@ -24,7 +29,8 @@
         "@eslint/js": "^9.39.4",
         "@tailwindcss/postcss": "^4.2.1",
         "@tailwindcss/typography": "^0.5.19",
-        "@types/node": "25.3.3",
+        "@types/better-sqlite3": "^7.6.13",
+        "@types/node": "^25.3.3",
         "@types/qs": "^6.15.1",
         "@types/react": "19.2.14",
         "eslint": "^9.39.4",

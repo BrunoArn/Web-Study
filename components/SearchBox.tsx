@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
+
 export default function SearchBox() {
     const router = useRouter();
     const [query, setQuery] = useState("");
@@ -17,7 +18,7 @@ export default function SearchBox() {
 
             (async () => {
                 try {
-                    const url = `/api/search?query=${encodeURIComponent(query)}`
+                    const url = `/api/search?query=${encodeURIComponent(debouncedQuery)}`
                     const response = await fetch(url, { signal: controller.signal });
                     const reviews = await response.json();
                     setReviews(reviews);

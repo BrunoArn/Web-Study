@@ -23,7 +23,7 @@ export default async function ReviewsPage({ searchParams }) {
             <Heading>Reviews</Heading>
             <div className="flex justify-between pb-3">
                 <PaginationBar href="/reviews" page={page} pageCount={pageCount} />
-                <SearchBox/>
+                <SearchBox />
             </div>
             <ul
                 className="flex flex-row flex-wrap gap-3  overflow-hidden">

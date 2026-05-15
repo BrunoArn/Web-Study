@@ -3,3 +3,5 @@
 /out/
 /scripts/strapi-response.json
 /.env*.local
+/.env
+/generated/prisma

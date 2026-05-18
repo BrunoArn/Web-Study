@@ -1,3 +1,5 @@
+// "use client";
+
 import { addCommentForReview } from "@/lib/comments";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -6,6 +8,11 @@ export default function CommentForm({ slug, title }) {
     
     async function action(formData: FormData) {
         "use server";
+
+        if (!formData.get("user")){
+            return {isError: true, message: "User name is required"};
+        }
+
         const message = await addCommentForReview({
             slug: slug,
             user: formData.get("user"),
@@ -29,6 +36,7 @@ export default function CommentForm({ slug, title }) {
                 <input id="userField"
                     name="user"
                     placeholder="Enter your name"
+                    required maxLength={50}
                     className="border px-2 py-1 rounded w-48" />
             </div>
 
@@ -39,6 +47,7 @@ export default function CommentForm({ slug, title }) {
                 <textarea id="messageField"
                     name="message"
                     placeholder="Enter your comment"
+                    required maxLength={500}
                     className="border px-2 py-1 rounded w-full" />
             </div>
             <button type="submit"

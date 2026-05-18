@@ -1,14 +1,27 @@
- "use client";
+"use client";
 
+import { useState } from "react";
 import { CreateCommentAction } from "@/app/reviews/[slug]/actions";
 
 
 export default function CommentForm({ slug, title }) {
+    const [error, setError] = useState(null);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+
+        //setError(null);
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+
         const result = await CreateCommentAction(formData);
-        console.log("[CommentForm] result:", result);
+
+        if (result?.isError) {
+            setError(result.message);
+        } else {
+            setError(null);
+            form.reset();
+        }
     }
 
     return (
@@ -39,6 +52,11 @@ export default function CommentForm({ slug, title }) {
                     required maxLength={500}
                     className="border px-2 py-1 rounded w-full" />
             </div>
+            {Boolean(error) && (
+                <p className="text-red-500">
+                    {error}
+                </p>
+            )}
             <button type="submit"
                 className="bg-orange-800 rounded px-2 py-1 self-center
                     text-slate-50 w-32 hover:bg-orange-700 transition">

@@ -7,7 +7,7 @@ export async function CreateCommentAction(formData: FormData) {
 
 
     if (!formData.get("user")) {
-        throw new Error("User name is required");
+        return { isError: true, message: "User name is required" };
     }
 
     const data = {

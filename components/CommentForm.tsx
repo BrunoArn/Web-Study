@@ -4,8 +4,15 @@ import { CreateCommentAction } from "@/app/reviews/[slug]/actions";
 
 
 export default function CommentForm({ slug, title }) {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const result = await CreateCommentAction(formData);
+        console.log("[CommentForm] result:", result);
+    }
+
     return (
-        <form action={CreateCommentAction}
+        <form onSubmit={handleSubmit}
             className="border bg-white flex flex-col gap-2 mt-3 px-3 py-2 rounded">
             <p>
                 Already played <strong>{title}</strong>? Have your say!

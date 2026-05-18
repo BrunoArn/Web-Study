@@ -1,12 +1,15 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+
+const nextConfig = {
   images: {
     dangerouslyAllowLocalIP: true,
     remotePatterns: [
       toRemotePattern(process.env.CMS_IMAGE_PATTERN)
     ]
   }
-};
+}
+
+export default nextConfig;
 
 function toRemotePattern(urlStrin) {
   const url = new URL(urlStrin)

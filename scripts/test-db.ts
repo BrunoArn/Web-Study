@@ -9,15 +9,14 @@ const adapter = new PrismaBetterSqlite3({
 const db = new PrismaClient({ adapter,
      log: [{ emit: "stdout", level: "query" }] });
 
-const comment = await db.comment.create({
-    data: {
-        slug: "diablo-iv",
-        user: "Wayne",
-        message: "Ok game!",
-    },
-});
+// const comment = await db.comment.create({
+//     data: {
+//         slug: "diablo-iv",
+//         user: "Wayne",
+//         message: "Ok game!",
+//     },
+// });
 
-console.log("Created comment:", comment);
 const comments = await db.comment.findMany({
     where: { slug: "diablo-iv" }
 });

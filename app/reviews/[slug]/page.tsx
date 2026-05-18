@@ -27,6 +27,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ReviewPage({ params }) {
+    //await new Promise((resolve) => setTimeout(resolve, 3000));
     const { slug } = await params;
     const reviewData = await getReviewData(slug);
     if (!reviewData) {

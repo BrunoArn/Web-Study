@@ -6,6 +6,8 @@ import { getReviewData, getSlugs } from "@/lib/reviews";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/20/solid";
 import CommentList from "@/components/CommentList";
 import CommentForm from "@/components/CommentForm";
+import { Suspense } from "react";
+import CommentListSkeleton from "@/components/CommentListSkeleton";
 
 
 export async function generateStaticParams() {
@@ -65,7 +67,9 @@ export default async function ReviewPage({ params }) {
                     Comments
                 </h2>
                 <CommentForm slug={slug} title={reviewData.title} />
-                <CommentList slug={slug} />
+                <Suspense fallback={<CommentListSkeleton />}>
+                    <CommentList slug={slug} />
+                </Suspense>
             </section>
         </>
     );

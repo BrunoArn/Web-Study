@@ -1,7 +1,7 @@
 "use server";
 import { addCommentForReview } from "@/lib/comments";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+//import { redirect } from "next/navigation";
 
 export async function CreateCommentAction(formData: FormData) {
     

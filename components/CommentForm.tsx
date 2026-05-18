@@ -1,34 +1,16 @@
-// "use client";
+ "use client";
 
-import { addCommentForReview } from "@/lib/comments";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { CreateCommentAction } from "@/app/reviews/[slug]/actions";
+
 
 export default function CommentForm({ slug, title }) {
-    
-    async function action(formData: FormData) {
-        "use server";
-
-        if (!formData.get("user")){
-            return {isError: true, message: "User name is required"};
-        }
-
-        const message = await addCommentForReview({
-            slug: slug,
-            user: formData.get("user"),
-            message: formData.get("message")
-        });
-        console.log("[action] message:", message);
-        revalidatePath("/reviews/" + slug);
-        redirect("/reviews/" + slug);
-    }
-
     return (
-        <form action={action}
+        <form action={CreateCommentAction}
             className="border bg-white flex flex-col gap-2 mt-3 px-3 py-2 rounded">
             <p>
                 Already played <strong>{title}</strong>? Have your say!
             </p>
+            <input type="hidden" name="slug" value={slug} />
             <div className="flex">
                 <label htmlFor="userField" className="shrink-0 w-32">
                     Your Name:

@@ -1,4 +1,5 @@
 import { addCommentForReview } from "@/lib/comments";
+import { redirect } from "next/navigation";
 
 export default function CommentForm({ slug, title }) {
     
@@ -10,6 +11,7 @@ export default function CommentForm({ slug, title }) {
             message: formData.get("message")
         });
         console.log("[action] message:", message);
+        redirect("/reviews/" + slug);
     }
 
     return (

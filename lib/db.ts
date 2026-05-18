@@ -7,7 +7,7 @@ const adapter = new PrismaBetterSqlite3({
 });
 
 declare global {
-  var prismaClient: PrismaClient | undefined;
+    var prismaClient: PrismaClient | undefined;
 }
 
 function CreatePrismaClient(): PrismaClient {

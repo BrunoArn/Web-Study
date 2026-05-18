@@ -1,19 +1,20 @@
 "use server";
-import { addCommentForReview } from "@/lib/comments";
+import { addCommentForReview, CreateCommentData } from "@/lib/comments";
 import { revalidatePath } from "next/cache";
+import type { ActionError } from '@/lib/actions';
 //import { redirect } from "next/navigation";
 
-export async function CreateCommentAction(formData: FormData) {
-    
+export async function CreateCommentAction(formData: FormData): Promise<undefined | ActionError> {
+
     const data = {
-        slug: formData.get("slug"),
-        user: formData.get("user"),
-        message: formData.get("message")
+        slug: formData.get("slug") as string,
+        user: formData.get("user") as string,
+        message: formData.get("message") as string
     };
 
     const error = validate(data);
     if (error) {
-        return {isError: true, message: error};
+        return { isError: true, message: error };
     }
 
     const message = await addCommentForReview(data);
@@ -21,21 +22,21 @@ export async function CreateCommentAction(formData: FormData) {
 
     revalidatePath("/reviews/" + data.slug);
     //redirect("/reviews/" + data.slug);
-    return { sucess : true };
+    return { isError: false, message: "Comment created successfully" };
 }
 
-function validate(data) {
-    if(!data.user) {
-        return { isError: true, message: "User name is required" };
+function validate(data: CreateCommentData): string | undefined {
+    if (!data.user) {
+        return 'Name field is required';
     }
-    if(data.user.length > 50) {
-        return { isError: true, message: "User name is too long" };
+    if (data.user.length > 50) {
+        return 'Name field cannot be longer than 50 characters';
     }
-    if(!data.message) {
-        return { isError: true, message: "Comment is required" };
+    if (!data.message) {
+        return 'Comment field is required';
     }
-    if(data.message.length > 500) {
-        return { isError: true, message: "Comment is too long" };
+    if (data.message.length > 500) {
+        return 'Comment field cannot be longer than 500 characters';
     }
 
 }

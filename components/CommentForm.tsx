@@ -1,28 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useFormHandler } from "@/lib/hooks";
 import { CreateCommentAction } from "@/app/reviews/[slug]/actions";
 
 
 export default function CommentForm({ slug, title }) {
-    const [state, setState] = useState({isLoading: false, error: null });
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        setState({isLoading: true, error: null});
-        const form = event.currentTarget;
-        const formData = new FormData(form);
-
-        const result = await CreateCommentAction(formData);
-
-        if (result?.isError) {
-            setState({isLoading: false, error: result});
-        } else {
-            form.reset();
-            setState({isLoading: false, error: null});
-        }
-    }
+    const [state, handleSubmit] = useFormHandler(CreateCommentAction);
 
     return (
         <form onSubmit={handleSubmit}
@@ -38,7 +21,7 @@ export default function CommentForm({ slug, title }) {
                 <input id="userField"
                     name="user"
                     placeholder="Enter your name"
-                    required maxLength={50}
+                    //required maxLength={50}
                     className="border px-2 py-1 rounded w-48" />
             </div>
 
@@ -49,12 +32,12 @@ export default function CommentForm({ slug, title }) {
                 <textarea id="messageField"
                     name="message"
                     placeholder="Enter your comment"
-                    required maxLength={500}
+                    //required maxLength={500}
                     className="border px-2 py-1 rounded w-full" />
             </div>
             {Boolean(state.error) && (
                 <p className="text-red-500">
-                    {state.error} 
+                    {state.error.message}
                 </p>
             )}
             <button type="submit"
